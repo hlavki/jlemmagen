@@ -76,8 +76,8 @@ public class LemmaRule {
         return groupCondLen >= from;
     }
 
-    public String lemmatize(String word) {
-        return word.substring(0, word.length() - from) + toStr;
+    public CharSequence lemmatize(CharSequence word) {
+        return word.subSequence(0, word.length() - from) + toStr;
     }
 
     private static int sameStem(String str1, String str2) {

@@ -115,12 +115,12 @@ public class DefaultLemmatizer implements TrainableLemmatizer {
     }
 
     @Override
-    public String lemmatize(String word) {
+    public CharSequence lemmatize(CharSequence word) {
         if (!settings.isBuildFrontLemmatizer()) {
             return getRootNodeSafe().lemmatize(word);
         } else {
             String wordFront = new StringBuilder(word).reverse().toString();
-            String lemmaFront = getRootNodeFrontSafe().lemmatize(wordFront);
+            CharSequence lemmaFront = getRootNodeFrontSafe().lemmatize(wordFront);
             String wordRear = new StringBuilder(lemmaFront).reverse().toString();
             return getRootNodeSafe().lemmatize(wordRear);
         }

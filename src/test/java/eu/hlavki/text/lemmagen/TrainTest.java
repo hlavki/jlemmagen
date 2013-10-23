@@ -91,7 +91,7 @@ public class TrainTest {
 
     private static void assertLemmaEquals(Lemmatizer lm, String[] actual, String[][] expected) {
         for (int idx = 0; idx < actual.length; idx++) {
-            String lemma = lm.lemmatize(actual[idx]);
+            CharSequence lemma = lm.lemmatize(actual[idx]);
             boolean result = false;
             StringBuilder sb = new StringBuilder("[");
             for (String[] row : expected) {

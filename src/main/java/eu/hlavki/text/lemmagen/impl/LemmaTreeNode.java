@@ -241,7 +241,7 @@ public final class LemmaTreeNode implements Lemmatizer {
         subNodes.put(ch, sub);
     }
 
-    public boolean conditionSatisfied(String word) {
+    public boolean conditionSatisfied(CharSequence word) {
         //if (bWholeWord)
         //    return sWord == sCondition;
         //else 
@@ -260,7 +260,7 @@ public final class LemmaTreeNode implements Lemmatizer {
     }
 
     @Override
-    public String lemmatize(String word) {
+    public CharSequence lemmatize(CharSequence word) {
         if (word.length() >= similarity && subNodes != null) {
             char ch = word.length() > similarity ? word.charAt(word.length() - 1 - similarity) : '\0';
             if (subNodes.containsKey(ch) && subNodes.get(ch).conditionSatisfied(word)) {

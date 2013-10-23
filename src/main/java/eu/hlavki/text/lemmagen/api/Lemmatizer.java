@@ -22,5 +22,5 @@ package eu.hlavki.text.lemmagen.api;
  */
 public interface Lemmatizer {
 
-    String lemmatize(String word);
+    CharSequence lemmatize(CharSequence word);
 }
