@@ -10,7 +10,6 @@
     <artifactId>jlemmagen</artifactId>
     <packaging>jar</packaging>
     <dependencies>
-        <!-- set your dependencies here -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -21,5 +20,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
