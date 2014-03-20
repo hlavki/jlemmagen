@@ -43,7 +43,7 @@ public final class LemmatizerFactory {
     private LemmatizerFactory() {
     }
 
-    public static Lemmatizer getPrebuild(String name) throws IOException {
+    public static Lemmatizer getPrebuilt(String name) throws IOException {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         String resource = MessageFormat.format(PREBUILD_PATTERN, name);
         InputStream in = cl.getResourceAsStream(resource);
@@ -51,7 +51,7 @@ public final class LemmatizerFactory {
         if (in != null) {
             result = read(in);
         } else {
-            throw new IOException("Cannot not find resource " + resource);
+            throw new IOException("Cannot found resource " + resource);
         }
         return result;
     }
