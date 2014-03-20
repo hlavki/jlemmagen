@@ -157,7 +157,6 @@ public class DefaultLemmatizer implements TrainableLemmatizer {
 
         boolean serializeExamples = in.readBoolean();
         examples = new ExampleList(in, settings);
-        System.out.println("Readed " + examples.getSize());
 
         ExampleList examplesRear;
         ExampleList examplesFront;
