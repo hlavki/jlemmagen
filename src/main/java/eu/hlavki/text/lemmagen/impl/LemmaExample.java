@@ -202,7 +202,7 @@ public class LemmaExample implements Comparable<LemmaExample> {
                     msd += "|" + joinLe.msd;
                     break;
                 case JOIN_DISTINCT:
-                    if (!new HashSet<String>(Arrays.asList(msd.split("\\|"))).contains(joinLe.msd)) {
+                    if (!new HashSet<>(Arrays.asList(msd.split("\\|"))).contains(joinLe.msd)) {
                         msd += "|" + joinLe.msd;
                     }
                     break;

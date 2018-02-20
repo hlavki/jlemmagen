@@ -45,7 +45,7 @@ public class ExampleList {
     public ExampleList(LemmatizerSettings settings) {
         this.settings = settings;
 
-        this.examples = new TreeMap<String, LemmaExample>();
+        this.examples = new TreeMap<>();
         this.examplesList = null;
         this.rules = new RuleList(settings);
     }
@@ -153,7 +153,7 @@ public class ExampleList {
 
     public final void finalizeAdditions() {
         if (examplesList != null) return;
-        examplesList = new ArrayList<LemmaExample>(examples.values());
+        examplesList = new ArrayList<>(examples.values());
         Collections.sort(examplesList);
     }
 
@@ -233,7 +233,7 @@ public class ExampleList {
         boolean createLstExamples = in.readBoolean();
 
         examplesList = createLstExamples ? new ArrayList<LemmaExample>() : null;
-        examples = new HashMap<String, LemmaExample>();
+        examples = new HashMap<>();
 
         //load dictionary items
         int count = in.readInt();

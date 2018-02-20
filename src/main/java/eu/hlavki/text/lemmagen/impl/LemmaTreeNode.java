@@ -103,7 +103,7 @@ public final class LemmaTreeNode implements Lemmatizer {
 
         //TODO check this heuristics, can be problematic when there are more applicable rules
         if (subNodes != null) {
-            Map<Character, LemmaTreeNode> replaceNodes = new HashMap<Character, LemmaTreeNode>();
+            Map<Character, LemmaTreeNode> replaceNodes = new HashMap<>();
             for (Map.Entry<Character, LemmaTreeNode> child : subNodes.entrySet()) {
                 if (child.getValue().subNodes != null && child.getValue().subNodes.size() == 1) {
                     Iterator<LemmaTreeNode> childChildIter = child.getValue().subNodes.values().iterator();
@@ -142,7 +142,7 @@ public final class LemmaTreeNode implements Lemmatizer {
         weight = 0;
 
         //calculate dWeight of whole node and calculates qualities for all rules
-        Map<LemmaRule, Double> applicableRules = new HashMap<LemmaRule, Double>();
+        Map<LemmaRule, Double> applicableRules = new HashMap<>();
         //dictApplicableRules.Add(elExamples.Rules.DefaultRule, 0);
         while (applicableRules.isEmpty()) {
             for (int exm = start; exm <= end; exm++) {
@@ -170,7 +170,7 @@ public final class LemmaTreeNode implements Lemmatizer {
         }
 
         //TODO can optimize this step using sorted list (dont add if it's worse than the worst)
-        List<WeightedRule> sortedRules = new ArrayList<WeightedRule>();
+        List<WeightedRule> sortedRules = new ArrayList<>();
         for (Map.Entry<LemmaRule, Double> entry : applicableRules.entrySet()) {
             sortedRules.add(new WeightedRule(entry.getKey(), entry.getValue() / weight));
         }
@@ -235,7 +235,7 @@ public final class LemmaTreeNode implements Lemmatizer {
         if (sub.bestRule.equals(bestRule) && sub.subNodes == null) return;
 
         if (subNodes == null) {
-            subNodes = new HashMap<Character, LemmaTreeNode>();
+            subNodes = new HashMap<>();
         }
         subNodes.put(ch, sub);
     }
@@ -335,7 +335,7 @@ public final class LemmaTreeNode implements Lemmatizer {
             LemmaTreeNode parentNode) throws IOException, ClassNotFoundException {
         this.settings = settings;
         if (in.readBoolean()) {
-            subNodes = new HashMap<Character, LemmaTreeNode>();
+            subNodes = new HashMap<>();
             int count = in.readInt();
             for (int i = 0; i < count; i++) {
                 char ch = in.readChar();
