@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 public class RuleList extends HashMap<String, LemmaRule> {
 
@@ -33,19 +33,23 @@ public class RuleList extends HashMap<String, LemmaRule> {
     private LemmatizerSettings settings;
     private LemmaRule defaultRule;
 
+
     public RuleList(LemmatizerSettings settings) {
         super();
         this.settings = settings;
         defaultRule = addRule(new LemmaRule("", "", 0, settings));
     }
 
+
     public LemmaRule getDefaultRule() {
         return defaultRule;
     }
 
+
     public LemmaRule addRule(LemmaExample le) {
         return addRule(new LemmaRule(le.getWord(), le.getLemma(), this.size(), settings));
     }
+
 
     private LemmaRule addRule(LemmaRule lemmaRule) {
         LemmaRule result = get(lemmaRule.getSignature());
@@ -55,6 +59,7 @@ public class RuleList extends HashMap<String, LemmaRule> {
         }
         return result;
     }
+
 
     public void writeObject(ObjectOutput out, boolean topObject) throws IOException {
         //save metadata
@@ -77,13 +82,15 @@ public class RuleList extends HashMap<String, LemmaRule> {
         writeString(out, defaultRule.getSignature());
     }
 
+
     public RuleList(ObjectInput in, LemmatizerSettings settings) throws IOException, ClassNotFoundException {
         super();
         readObject(in, settings);
     }
 
+
     private void readObject(ObjectInput in, LemmatizerSettings settings) throws IOException,
-            ClassNotFoundException {
+        ClassNotFoundException {
         //load metadata
         boolean topObject = in.readBoolean();
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 public class ExampleList {
 
@@ -42,6 +42,7 @@ public class ExampleList {
     private Map<String, LemmaExample> examples;
     private transient List<LemmaExample> examplesList;
 
+
     public ExampleList(LemmatizerSettings settings) {
         this.settings = settings;
 
@@ -50,21 +51,25 @@ public class ExampleList {
         this.rules = new RuleList(settings);
     }
 
+
     public ExampleList(BufferedReader reader, String sFormat, LemmatizerSettings settings)
-            throws NumberFormatException, IOException {
+        throws NumberFormatException, IOException {
         this(settings);
         addMultextFile(reader, sFormat);
     }
+
 
     public LemmaExample get(int idx) {
         if (examplesList == null) finalizeAdditions();
         return examplesList.get(idx);
     }
 
+
     public int getSize() {
         if (examplesList == null) finalizeAdditions();
         return examplesList.size();
     }
+
 
     public double getWeightSum() {
         if (examplesList == null) finalizeAdditions();
@@ -75,14 +80,17 @@ public class ExampleList {
         return weight;
     }
 
+
     public List<LemmaExample> getExamplesList() {
         if (examplesList == null) finalizeAdditions();
         return examplesList;
     }
 
+
     public RuleList getRules() {
         return rules;
     }
+
 
     public final void addMultextFile(BufferedReader reader, String format) throws IOException {
         int err = 0;
@@ -129,11 +137,13 @@ public class ExampleList {
         }
     }
 
+
     public LemmaExample addExample(String word, String lemma, double weight, String msd) {
         String newMsd = settings.getMsdConsider() != IGNORE ? msd : null;
         LemmaExample leNew = new LemmaExample(word, lemma, weight, newMsd, rules, settings);
         return add(leNew);
     }
+
 
     private LemmaExample add(LemmaExample newLe) {
         LemmaExample result = examples.get(newLe.getSignature());
@@ -146,16 +156,19 @@ public class ExampleList {
         return result;
     }
 
+
     public final void clear() {
         examples.clear();
         examplesList = null;
     }
+
 
     public final void finalizeAdditions() {
         if (examplesList != null) return;
         examplesList = new ArrayList<>(examples.values());
         Collections.sort(examplesList);
     }
+
 
     public ExampleList getFrontRearExampleList(boolean front) {
         ExampleList examplesNew = new ExampleList(settings);
@@ -169,6 +182,7 @@ public class ExampleList {
         examplesNew.finalizeAdditions();
         return examplesNew;
     }
+
 
     public void writeObject(ObjectOutput out, boolean serializeExamples, boolean topObject) throws IOException {
         //save metadata
@@ -211,13 +225,15 @@ public class ExampleList {
         }
     }
 
+
     public ExampleList(ObjectInput in, LemmatizerSettings settings) throws IOException,
-            ClassNotFoundException {
+        ClassNotFoundException {
         readObject(in, settings);
     }
 
+
     private void readObject(ObjectInput in, LemmatizerSettings settings) throws IOException,
-            ClassNotFoundException {
+        ClassNotFoundException {
         //load metadata
         boolean topObject = in.readBoolean();
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,29 @@ package eu.hlavki.text.lemmagen.impl;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 public class WeightedRule implements Comparable<WeightedRule> {
 
     private final LemmaRule rule;
     private final double weight;
 
+
     public WeightedRule(LemmaRule lemmaRule, double weight) {
         this.rule = lemmaRule;
         this.weight = weight;
     }
 
+
     public LemmaRule getRule() {
         return rule;
     }
 
+
     public double getWeight() {
         return weight;
     }
+
 
     @Override
     public int compareTo(WeightedRule o) {
@@ -45,6 +49,7 @@ public class WeightedRule implements Comparable<WeightedRule> {
         if (this.rule.getId() > o.rule.getId()) return -1;
         return 0;
     }
+
 
     @Override
     public String toString() {

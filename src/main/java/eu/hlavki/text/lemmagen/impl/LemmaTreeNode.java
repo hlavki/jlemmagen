@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import static eu.hlavki.text.lemmagen.impl.Serializer.*;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 public final class LemmaTreeNode implements Lemmatizer {
 
@@ -57,13 +57,16 @@ public final class LemmaTreeNode implements Lemmatizer {
     private int end;
     private ExampleList examples;
 
+
     private LemmaTreeNode(LemmatizerSettings settings) {
         this.settings = settings;
     }
 
+
     public LemmaTreeNode(LemmatizerSettings settings, ExampleList examples) {
         this(settings, examples, 0, examples.getSize() - 1, null);
     }
+
 
     /**
      *
@@ -75,7 +78,7 @@ public final class LemmaTreeNode implements Lemmatizer {
      */
     @SuppressWarnings("LeakingThisInConstructor")
     private LemmaTreeNode(LemmatizerSettings settings, ExampleList examples, int start, int end,
-            LemmaTreeNode parentNode) {
+        LemmaTreeNode parentNode) {
         this(settings);
         this.parentNode = parentNode;
         this.subNodes = null;
@@ -96,7 +99,7 @@ public final class LemmaTreeNode implements Lemmatizer {
         this.condition = examples.get(start).getWord().substring(examples.get(start).getWord().length() - conditionLength);
         this.similarity = examples.get(start).similarTo(examples.get(end));
         this.wholeWord = parentNode == null ? false
-                : examples.get(end).getWord().length() == parentNode.similarity;
+            : examples.get(end).getWord().length() == parentNode.similarity;
 
         findBestRules();
         addSubAll();
@@ -120,6 +123,7 @@ public final class LemmaTreeNode implements Lemmatizer {
         }
     }
 
+
     public int getTreeSize() {
         int count = 1;
         if (subNodes != null) {
@@ -130,13 +134,16 @@ public final class LemmaTreeNode implements Lemmatizer {
         return count;
     }
 
+
     public String getCondition() {
         return condition;
     }
 
+
     public double getWeight() {
         return weight;
     }
+
 
     private void findBestRules() {
         weight = 0;
@@ -200,6 +207,7 @@ public final class LemmaTreeNode implements Lemmatizer {
         }
     }
 
+
     private void addSubAll() {
         int startGroup = start;
         char prevChar = '\0';
@@ -228,6 +236,7 @@ public final class LemmaTreeNode implements Lemmatizer {
         if (subGroupNeeded && startGroup != start) addSub(startGroup, end, prevChar);
     }
 
+
     private void addSub(int start, int end, char ch) {
         LemmaTreeNode sub = new LemmaTreeNode(settings, examples, start, end, this);
 
@@ -240,10 +249,11 @@ public final class LemmaTreeNode implements Lemmatizer {
         subNodes.put(ch, sub);
     }
 
+
     public boolean conditionSatisfied(CharSequence word) {
         //if (bWholeWord)
         //    return sWord == sCondition;
-        //else 
+        //else
         //    return sWord.EndsWith(sCondition);
 
         int diff = word.length() - condition.length();
@@ -258,6 +268,7 @@ public final class LemmaTreeNode implements Lemmatizer {
         return true;
     }
 
+
     @Override
     public CharSequence lemmatize(CharSequence word) {
         if (word.length() >= similarity && subNodes != null) {
@@ -269,12 +280,14 @@ public final class LemmaTreeNode implements Lemmatizer {
         return bestRule.lemmatize(word);
     }
 
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         toString(sb, 0);
         return sb.toString();
     }
+
 
     private void toString(StringBuilder sb, int level) {
         sb.append(new String(new char[level]).replace('\0', '\t'));
@@ -299,6 +312,7 @@ public final class LemmaTreeNode implements Lemmatizer {
             }
         }
     }
+
 
     public void writeObject(ObjectOutput out) throws IOException {
         out.writeBoolean(subNodes != null);
@@ -326,13 +340,15 @@ public final class LemmaTreeNode implements Lemmatizer {
         out.writeInt(end);
     }
 
+
     public LemmaTreeNode(ObjectInput in, LemmatizerSettings settings, ExampleList examples,
-            LemmaTreeNode parentNode) throws IOException, ClassNotFoundException {
+        LemmaTreeNode parentNode) throws IOException, ClassNotFoundException {
         readObject(in, settings, examples, parentNode);
     }
 
+
     private void readObject(ObjectInput in, LemmatizerSettings settings, ExampleList examples,
-            LemmaTreeNode parentNode) throws IOException, ClassNotFoundException {
+        LemmaTreeNode parentNode) throws IOException, ClassNotFoundException {
         this.settings = settings;
         if (in.readBoolean()) {
             subNodes = new HashMap<>();

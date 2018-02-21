@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import java.io.ObjectOutput;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 final class Serializer {
 
@@ -31,6 +31,7 @@ final class Serializer {
             out.writeUTF(str);
         }
     }
+
 
     public static final String readString(ObjectInput in) throws IOException {
         boolean n = in.readBoolean();

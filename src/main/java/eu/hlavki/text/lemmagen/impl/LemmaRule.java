@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import java.io.ObjectOutput;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 public class LemmaRule {
 
@@ -33,6 +33,7 @@ public class LemmaRule {
     private String signature;
     private LemmatizerSettings settings;
 
+
     public LemmaRule(String word, String lemma, int id, LemmatizerSettings settings) {
         this.settings = settings;
         this.id = id;
@@ -40,7 +41,7 @@ public class LemmaRule {
         int sameStem = sameStem(word, lemma);
         toStr = lemma.substring(sameStem);
         from = word.length() - sameStem;
- 
+
         if (settings.isUseFromInRules()) {
             fromStr = word.substring(sameStem);
             signature = "[" + fromStr + "]==>[" + toStr + "]";
@@ -50,43 +51,53 @@ public class LemmaRule {
         }
     }
 
+
     public int getId() {
         return id;
     }
+
 
     public String getSignature() {
         return signature;
     }
 
+
     public int getFrom() {
         return from;
     }
 
+
     public String getToStr() {
         return toStr;
     }
+
 
     @Override
     public String toString() {
         return id + ":" + signature;
     }
 
+
     public boolean isApplicableToGroup(int groupCondLen) {
         return groupCondLen >= from;
     }
+
 
     public CharSequence lemmatize(CharSequence word) {
         return word.subSequence(0, word.length() - from) + toStr;
     }
 
+
     private static int sameStem(String str1, String str2) {
         int maxLength = Math.min(str1.length(), str2.length());
 
-        for (int pos = 0; pos < maxLength; pos++)
+        for (int pos = 0; pos < maxLength; pos++) {
             if (str1.charAt(pos) != str2.charAt(pos)) return pos;
+        }
 
         return maxLength;
     }
+
 
     public void writeObject(ObjectOutput out, boolean topObject) throws IOException {
         //save metadata
@@ -94,21 +105,23 @@ public class LemmaRule {
 
         out.writeInt(id);
         out.writeInt(from);
-        writeString(out,fromStr);
-        writeString(out,toStr);
-        writeString(out,signature);
+        writeString(out, fromStr);
+        writeString(out, toStr);
+        writeString(out, signature);
 
         if (topObject) {
             settings.writeObject(out);
         }
     }
 
+
     public LemmaRule(ObjectInput in, LemmatizerSettings settings) throws IOException, ClassNotFoundException {
         readObject(in, settings);
     }
 
+
     private void readObject(ObjectInput in, LemmatizerSettings settings) throws IOException,
-            ClassNotFoundException {
+        ClassNotFoundException {
         //load metadata
         boolean topObject = in.readBoolean();
 

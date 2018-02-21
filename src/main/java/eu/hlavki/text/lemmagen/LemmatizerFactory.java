@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,15 +33,17 @@ import java.text.MessageFormat;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 public final class LemmatizerFactory {
 
     private static final Logger log = LoggerFactory.getLogger(LemmatizerFactory.class);
     private static final String PREBUILD_PATTERN = "{0}.lem";
 
+
     private LemmatizerFactory() {
     }
+
 
     public static Lemmatizer getPrebuilt(String name) throws IOException {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
@@ -55,6 +57,7 @@ public final class LemmatizerFactory {
         }
         return result;
     }
+
 
     public static void saveToFile(DefaultLemmatizer lemmatizer, File file) throws IOException {
         ObjectOutputStream oos = null;
@@ -72,6 +75,7 @@ public final class LemmatizerFactory {
             }
         }
     }
+
 
     public static Lemmatizer read(InputStream in) throws IOException {
         Lemmatizer retVal = null;
@@ -91,6 +95,7 @@ public final class LemmatizerFactory {
         return retVal;
 
     }
+
 
     static Lemmatizer readFromFile(File file) throws IOException {
         return read(new FileInputStream(file));

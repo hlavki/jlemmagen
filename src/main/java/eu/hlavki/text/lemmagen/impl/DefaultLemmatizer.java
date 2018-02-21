@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import eu.hlavki.text.lemmagen.api.TrainableLemmatizer;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 public class DefaultLemmatizer implements TrainableLemmatizer {
 
@@ -35,9 +35,11 @@ public class DefaultLemmatizer implements TrainableLemmatizer {
     private LemmaTreeNode rootNode;
     private LemmaTreeNode rootNodeFront;
 
+
     public DefaultLemmatizer() {
         this(new LemmatizerSettings());
     }
+
 
     public DefaultLemmatizer(LemmatizerSettings settings) {
         this.settings = settings;
@@ -46,44 +48,53 @@ public class DefaultLemmatizer implements TrainableLemmatizer {
         this.rootNodeFront = null;
     }
 
+
     public DefaultLemmatizer(BufferedReader reader, String format, LemmatizerSettings settings)
-            throws IOException {
+        throws IOException {
         this(settings);
         addMultextFile(reader, format);
     }
+
 
     public LemmaTreeNode getRootNode() {
         return getRootNodeSafe();
     }
 
+
     public LemmaTreeNode getRootNodeFront() {
         return getRootNodeFrontSafe();
     }
+
 
     private LemmaTreeNode getRootNodeSafe() {
         if (rootNode == null) buildModel();
         return rootNode;
     }
 
+
     private LemmaTreeNode getRootNodeFrontSafe() {
         if (rootNodeFront == null && settings.isBuildFrontLemmatizer()) buildModel();
         return rootNodeFront;
     }
+
 
     public final void addMultextFile(BufferedReader reader, String format) throws IOException {
         this.examples.addMultextFile(reader, format);
         rootNode = null;
     }
 
+
     @Override
     public void addExample(String word, String lemma) {
         addExample(word, lemma, 1, null);
     }
 
+
     @Override
     public void addExample(String word, String lemma, double weight) {
         addExample(word, lemma, weight, null);
     }
+
 
     @Override
     public void addExample(String word, String lemma, double weight, String msd) {
@@ -91,13 +102,16 @@ public class DefaultLemmatizer implements TrainableLemmatizer {
         rootNode = null;
     }
 
+
     public void clearExamples() {
         examples.clear();
     }
 
+
     public void finalizeAdditions() {
         examples.finalizeAdditions();
     }
+
 
     @Override
     public final void buildModel() {
@@ -113,6 +127,7 @@ public class DefaultLemmatizer implements TrainableLemmatizer {
         }
     }
 
+
     @Override
     public CharSequence lemmatize(CharSequence word) {
         if (!settings.isBuildFrontLemmatizer()) {
@@ -124,6 +139,7 @@ public class DefaultLemmatizer implements TrainableLemmatizer {
             return getRootNodeSafe().lemmatize(wordRear);
         }
     }
+
 
     public void writeObject(ObjectOutput out, boolean serializeExamples) throws IOException {
 
@@ -143,6 +159,7 @@ public class DefaultLemmatizer implements TrainableLemmatizer {
         }
     }
 
+
     public DefaultLemmatizer(ObjectInput in) throws IOException {
         try {
             readObject(in);
@@ -151,6 +168,7 @@ public class DefaultLemmatizer implements TrainableLemmatizer {
             log.error("Can't load instance from input stream", e);
         }
     }
+
 
     private void readObject(ObjectInput in) throws IOException, ClassNotFoundException {
         settings = new LemmatizerSettings(in);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import java.io.ObjectOutput;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 public class LemmatizerSettings implements Cloneable {
 
@@ -72,49 +72,60 @@ public class LemmatizerSettings implements Cloneable {
      */
     private boolean buildFrontLemmatizer;
 
+
     public LemmatizerSettings() {
         this(true, MsdConsideration.DISTINCT, 0, false);
     }
 
+
     public LemmatizerSettings(boolean useFromInRules, MsdConsideration msdConsider, int maxRulesPerNode,
-            boolean buildFrontLemmatizer) {
+        boolean buildFrontLemmatizer) {
         this.useFromInRules = useFromInRules;
         this.msdConsider = msdConsider;
         this.maxRulesPerNode = maxRulesPerNode;
         this.buildFrontLemmatizer = buildFrontLemmatizer;
     }
+
 
     public boolean isUseFromInRules() {
         return useFromInRules;
     }
 
+
     public void setUseFromInRules(boolean useFromInRules) {
         this.useFromInRules = useFromInRules;
     }
+
 
     public MsdConsideration getMsdConsider() {
         return msdConsider;
     }
 
+
     public void setMsdConsider(MsdConsideration msdConsider) {
         this.msdConsider = msdConsider;
     }
+
 
     public int getMaxRulesPerNode() {
         return maxRulesPerNode;
     }
 
+
     public void setMaxRulesPerNode(int maxRulesPerNode) {
         this.maxRulesPerNode = maxRulesPerNode;
     }
+
 
     public boolean isBuildFrontLemmatizer() {
         return buildFrontLemmatizer;
     }
 
+
     public void setBuildFrontLemmatizer(boolean buildFrontLemmatizer) {
         this.buildFrontLemmatizer = buildFrontLemmatizer;
     }
+
 
     public void writeObject(ObjectOutput out) throws IOException {
         out.writeBoolean(useFromInRules);
@@ -123,9 +134,11 @@ public class LemmatizerSettings implements Cloneable {
         out.writeBoolean(buildFrontLemmatizer);
     }
 
+
     public LemmatizerSettings(ObjectInput in) throws IOException, ClassNotFoundException {
         readObject(in);
     }
+
 
     private void readObject(ObjectInput in) throws IOException, ClassNotFoundException {
         useFromInRules = in.readBoolean();

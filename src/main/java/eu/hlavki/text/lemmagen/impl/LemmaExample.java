@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Michal Hlavac <hlavki@hlavki.eu>.
+ * Copyright 2013 Michal Hlavac
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import java.util.HashSet;
 
 /**
  *
- * @author Michal Hlavac <hlavki@hlavki.eu>
+ * @author Michal Hlavac
  */
 public class LemmaExample implements Comparable<LemmaExample> {
 
@@ -40,9 +40,10 @@ public class LemmaExample implements Comparable<LemmaExample> {
     private String wordFrontCache;
     private String lemmaFrontCache;
 
+
     @SuppressWarnings("LeakingThisInConstructor")
     public LemmaExample(String word, String lemma, double weight, String msd, RuleList rules,
-            LemmatizerSettings settings) {
+        LemmatizerSettings settings) {
         this.word = word;
         this.lemma = lemma;
         this.msd = msd;
@@ -51,16 +52,16 @@ public class LemmaExample implements Comparable<LemmaExample> {
         this.rule = rules.addRule(this);
 
         switch (settings.getMsdConsider()) {
-            case IGNORE:
-            case JOIN_ALL:
-            case JOIN_DISTINCT:
-            case JOIN_SAME_SUBSTRING:
-                signature = "[" + word + "]==>[" + lemma + "]";
-                break;
-            case DISTINCT:
-            default:
-                signature = "[" + word + "]==>[" + lemma + "](" + (msd != null ? msd : "") + ")";
-                break;
+        case IGNORE:
+        case JOIN_ALL:
+        case JOIN_DISTINCT:
+        case JOIN_SAME_SUBSTRING:
+            signature = "[" + word + "]==>[" + lemma + "]";
+            break;
+        case DISTINCT:
+        default:
+            signature = "[" + word + "]==>[" + lemma + "](" + (msd != null ? msd : "") + ")";
+            break;
         }
 
         this.wordRearCache = null;
@@ -68,29 +69,36 @@ public class LemmaExample implements Comparable<LemmaExample> {
         this.lemmaFrontCache = null;
     }
 
+
     public String getWord() {
         return word;
     }
+
 
     public String getLemma() {
         return lemma;
     }
 
+
     public String getSignature() {
         return signature;
     }
+
 
     public String getMsd() {
         return msd;
     }
 
+
     public double getWeight() {
         return weight;
     }
 
+
     public LemmaRule getRule() {
         return rule;
     }
+
 
     public String getWordFront() {
         if (wordFrontCache == null) {
@@ -98,6 +106,7 @@ public class LemmaExample implements Comparable<LemmaExample> {
         }
         return wordFrontCache;
     }
+
 
     /**
      * Lemma to be produced by pre-lemmatizing with Front-Lemmatizer (Warning it is reversed)
@@ -110,6 +119,7 @@ public class LemmaExample implements Comparable<LemmaExample> {
         }
         return lemmaFrontCache;
     }
+
 
     /**
      * word to be lemmatized by standard Rear-Lemmatizer (it's beggining has been already modified by
@@ -124,10 +134,11 @@ public class LemmaExample implements Comparable<LemmaExample> {
             int wordPos = lcResult.pos1;
             int lemmaPos = lcResult.pos2;
             wordRearCache = lemmaPos == -1 ? lemma
-                    : (lemma.substring(0, lemmaPos + common.length()) + word.substring(wordPos + common.length()));
+                : (lemma.substring(0, lemmaPos + common.length()) + word.substring(wordPos + common.length()));
         }
         return wordRearCache;
     }
+
 
     /**
      * lemma to be produced by standard Rear-Lemmatizer from WordRear
@@ -138,6 +149,7 @@ public class LemmaExample implements Comparable<LemmaExample> {
         return lemma;
     }
 
+
     private LongestCommonResult longestCommonSubString(String str1, String str2) {
         int[][] l = new int[str1.length() + 1][str2.length() + 1];
         int z = 0;
@@ -145,8 +157,8 @@ public class LemmaExample implements Comparable<LemmaExample> {
         int pos1 = -1;
         int pos2 = -1;
 
-        for (int i = 0; i < str1.length(); i++)
-            for (int j = 0; j < str2.length(); j++)
+        for (int i = 0; i < str1.length(); i++) {
+            for (int j = 0; j < str2.length(); j++) {
                 if (str1.charAt(i) == str2.charAt(j)) {
                     if (i == 0 || j == 0) l[i][j] = 1;
                     else l[i][j] = l[i - 1][j - 1] + 1;
@@ -157,18 +169,23 @@ public class LemmaExample implements Comparable<LemmaExample> {
                         ret = str1.substring(i - z + 1, (i - z + 1) + z);
                     }
                 }
+            }
+        }
 
         return new LongestCommonResult(ret, pos1, pos2);
     }
 
+
     public static int equalsPrifixLen(String str1, String str2) {
         int maxLen = Math.min(str1.length(), str2.length());
 
-        for (int pos = 0; pos < maxLen; pos++)
+        for (int pos = 0; pos < maxLen; pos++) {
             if (str1.charAt(pos) != str2.charAt(pos)) return pos;
+        }
 
         return maxLen;
     }
+
 
     @Override
     public int compareTo(LemmaExample o) {
@@ -181,7 +198,7 @@ public class LemmaExample implements Comparable<LemmaExample> {
         if (result != 0) return result;
 
         if (settings.getMsdConsider() == LemmatizerSettings.MsdConsideration.DISTINCT
-                && this.msd != null && o.msd != null) {
+            && this.msd != null && o.msd != null) {
             result = compareStrings(this.msd, o.msd, true);
             if (result != 0) return result;
         }
@@ -189,38 +206,42 @@ public class LemmaExample implements Comparable<LemmaExample> {
         return 0;
     }
 
+
     public void join(LemmaExample joinLe) {
         weight += joinLe.weight;
         if (msd != null)
             switch (settings.getMsdConsider()) {
-                case IGNORE:
-                    msd = null;
-                    break;
-                case DISTINCT:
-                    break;
-                case JOIN_ALL:
+            case IGNORE:
+                msd = null;
+                break;
+            case DISTINCT:
+                break;
+            case JOIN_ALL:
+                msd += "|" + joinLe.msd;
+                break;
+            case JOIN_DISTINCT:
+                if (!new HashSet<>(Arrays.asList(msd.split("\\|"))).contains(joinLe.msd)) {
                     msd += "|" + joinLe.msd;
-                    break;
-                case JOIN_DISTINCT:
-                    if (!new HashSet<>(Arrays.asList(msd.split("\\|"))).contains(joinLe.msd)) {
-                        msd += "|" + joinLe.msd;
-                    }
-                    break;
-                case JOIN_SAME_SUBSTRING:
-                    int pos = 0;
-                    int max = Math.min(msd.length(), joinLe.msd.length());
-                    while (pos < max && msd.charAt(pos) == joinLe.msd.charAt(pos))
-                        pos++;
-                    msd = msd.substring(0, pos);
-                    break;
-                default:
-                    break;
+                }
+                break;
+            case JOIN_SAME_SUBSTRING:
+                int pos = 0;
+                int max = Math.min(msd.length(), joinLe.msd.length());
+                while (pos < max && msd.charAt(pos) == joinLe.msd.charAt(pos)) {
+                    pos++;
+                }
+                msd = msd.substring(0, pos);
+                break;
+            default:
+                break;
             }
     }
+
 
     public int similarTo(LemmaExample le) {
         return similar(this, le);
     }
+
 
     public static int similar(LemmaExample le1, LemmaExample le2) {
         String word1 = le1.word;
@@ -229,8 +250,9 @@ public class LemmaExample implements Comparable<LemmaExample> {
         int len2 = word2.length();
         int maxLen = Math.min(len1, len2);
 
-        for (int pos = 1; pos <= maxLen; pos++)
+        for (int pos = 1; pos <= maxLen; pos++) {
             if (word1.charAt(len1 - pos) != word2.charAt(len2 - pos)) return pos - 1;
+        }
 
         //TODO similarTo should be bigger if two words are totaly equal
         //if (word1 == word2)
@@ -238,6 +260,7 @@ public class LemmaExample implements Comparable<LemmaExample> {
         //else
         return maxLen;
     }
+
 
     /**
      * Function used to comprare current MultextExample (ME) against argument ME. Mainly used in for sorting
@@ -276,12 +299,14 @@ public class LemmaExample implements Comparable<LemmaExample> {
         public final int pos1;
         public final int pos2;
 
+
         public LongestCommonResult(String substring, int pos1, int pos2) {
             this.substring = substring;
             this.pos1 = pos1;
             this.pos2 = pos2;
         }
     }
+
 
     @Override
     public String toString() {
@@ -294,6 +319,7 @@ public class LemmaExample implements Comparable<LemmaExample> {
 
         return sb.substring(0, sb.length() - 1);
     }
+
 
     public void writeObject(ObjectOutput out, boolean topObject) throws IOException {
 //save metadata
@@ -318,13 +344,15 @@ public class LemmaExample implements Comparable<LemmaExample> {
         }
     }
 
+
     public LemmaExample(ObjectInput in, LemmatizerSettings settings, LemmaRule rule) throws IOException,
-            ClassNotFoundException {
+        ClassNotFoundException {
         readObject(in, settings, rule);
     }
 
+
     private void readObject(ObjectInput in, LemmatizerSettings settings, LemmaRule rule) throws IOException,
-            ClassNotFoundException {
+        ClassNotFoundException {
         //load metadata
         boolean topObject = in.readBoolean();
 
