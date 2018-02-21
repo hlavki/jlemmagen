@@ -21,7 +21,7 @@ Repository:
     <repository>
         <id>jlemmagen-snapshots</id>
         <name>JLemmaGen snaphsot repository</name>
-        <url>https://repository.xit.camp/repository/maven-public-snapshots/</url>
+        <url>https://repository.xit.camp/repository/maven-public-releases/</url>
         <snapshots>
             <enabled>true</enabled>
         </snapshots>
@@ -32,8 +32,16 @@ Dependency:
 
     <dependency>
         <groupId>eu.hlavki.text</groupId>
+        <artifactId>lemmagen</groupId>
+        <version>1.0</version>
+    </dependency>
+
+Additionally you can add language dictionaries:
+
+    <dependency>
+        <groupId>eu.hlavki.text</groupId>
         <artifactId>lemmagen-lang</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </dependency>
 
 ### Lucene (Solr)
@@ -48,6 +56,13 @@ Example of solr filter definition in schema (e.g. Slovak):
 
     <filter class="org.apache.lucene.analysis.lemmagen.LemmagenFilterFactory" lexicon="mlteast-sk"/>
 
+
+### Making release
+
+```bash
+mvn clean release:prepare release:perform -Darguments='-Dmaven.javadoc.failOnError=false'
+git push --follow-tags
+```
 
 ### License
 
