@@ -8,6 +8,7 @@ Of course you can build your own lexicon.
 Project contains 2 libraries:
 
 *    **lemmagen.jar** - implementation of lemmatizer and API for building own lemmatizers
+*    **lemmagen-lucene.jar** - lucene filter to lemmatize tokens
 *    **lemmagen-lang.jar** - prebuilted lemmatizers from [Multext Eastern dictionaries][multeast]
     * **IMPORTANT!**  - see [License](#markdown-header-license) chapter.
 
