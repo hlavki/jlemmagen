@@ -16,17 +16,6 @@ Project contains 2 libraries:
     assert("be".equals(lm.lemmatize("are")));
 
 ### Maven
-Repository:
-
-    <repository>
-        <id>jlemmagen-snapshots</id>
-        <name>JLemmaGen snaphsot repository</name>
-        <url>https://repository.xit.camp/repository/maven-public-releases/</url>
-        <snapshots>
-            <enabled>true</enabled>
-        </snapshots>
-        <layout>default</layout>
-    </repository>
 
 Dependency:
 
