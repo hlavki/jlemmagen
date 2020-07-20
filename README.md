@@ -22,7 +22,7 @@ Dependency:
 
     <dependency>
         <groupId>eu.hlavki.text</groupId>
-        <artifactId>lemmagen</groupId>
+        <artifactId>jlemmagen</groupId>
         <version>1.0</version>
     </dependency>
 
@@ -30,16 +30,16 @@ Additionally you can add language dictionaries:
 
     <dependency>
         <groupId>eu.hlavki.text</groupId>
-        <artifactId>lemmagen-lang</groupId>
+        <artifactId>jlemmagen-lang</groupId>
         <version>1.0</version>
     </dependency>
 
 ### Lucene (Solr)
 You need these jars to integrate with lucene/solr:
 
-*    lemmagen-lucene.jar
-*    lemmagen.jar
-*    lemmagen-lang.jar
+*    jlemmagen-lucene.jar
+*    jlemmagen.jar
+*    jlemmagen-lang.jar
 *    SLF4J API and implememtation (e.g. slf4j-jdk14.jar)
 
 Example of solr filter definition in schema (e.g. Slovak):
