@@ -9,7 +9,7 @@
 
     <name>JLemmaGen</name>
     <description>JLemmaGen is java implmentation of LemmaGen project. It's open source lemmatizer with 15 prebuilted european lexicons.</description>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/hlavki/jlemmagen</url>
 
     <scm>
         <connection>scm:git:git@github.com:hlavki/jlemmagen.git</connection>
