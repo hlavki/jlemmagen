@@ -4,7 +4,7 @@
 
     <groupId>eu.hlavki.text</groupId>
     <artifactId>jlemmagen</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>bundle</packaging>
 
     <name>JLemmaGen</name>
@@ -14,7 +14,7 @@
     <scm>
         <connection>scm:git:git@github.com:hlavki/jlemmagen.git</connection>
         <url>https://github.com/hlavki/jlemmagen</url>
-        <tag>HEAD</tag>
+        <tag>r1.0</tag>
     </scm>
 
     <licenses>
